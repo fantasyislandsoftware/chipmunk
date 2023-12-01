@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { usePSGStore } from '../stores/usePSGStore';
-import './App.css';
 import { loadPSG } from '../functions/importers/psg';
 import { useAYPlayerStore } from '../stores/useAYPlayerStore';
 import { initAYPLayer, processAYBuffer } from '../functions/ayPlayer';

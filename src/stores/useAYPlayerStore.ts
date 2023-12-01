@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Ayumi } from '../renderer/ayumi';
+import { Ayumi } from '../classes/ayumi';
 
 export interface AYPlayerStore {
   engine: Ayumi;
