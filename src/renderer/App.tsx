@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { usePSGStore } from '../stores/usePSGStore';
 import { loadPSG } from '../functions/importers/psg';
-import { useAYPlayerStore } from '../stores/useAYPlayerStore';
-import { initAYPLayer, processAYBuffer } from '../functions/ayPlayer';
+import VirtualKeyboard from './WIndows/VirtualKeyboard';
+import '../css/window.css';
+import PSGImport from './WIndows/PSGImport';
 
 const App = () => {
   const { loading } = usePSGStore();
-  const { context, frame } = useAYPlayerStore();
 
   useEffect(() => {
     if (!loading) {
@@ -16,21 +16,8 @@ const App = () => {
 
   return (
     <div>
-      <button
-        onClick={() => {
-          initAYPLayer(processAYBuffer);
-        }}
-      >
-        PLAY
-      </button>
-      <button
-        onClick={() => {
-          context.suspend();
-        }}
-      >
-        STOP
-      </button>
-      <div>{frame}</div>
+      <VirtualKeyboard />
+      <PSGImport />
     </div>
   );
 };
