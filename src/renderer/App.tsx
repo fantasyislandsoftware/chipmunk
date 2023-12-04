@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { usePSGStore } from '../stores/usePSGStore';
 import { loadPSG } from '../functions/importers/psg';
-import VirtualKeyboard from './WIndows/VirtualKeyboard';
-import '../css/window.css';
+import VirtualKeyboardContainer from './WIndows/VirtualKeyboard/VirtualKeyboardContainer';
+import '../css/base.css';
 import PSGImport from './WIndows/PSGImport';
 import { useAYPlayerStore } from '../stores/useAYPlayerStore';
 import {
@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div>
-      <VirtualKeyboard />
+      <VirtualKeyboardContainer />
       <PSGImport />
     </div>
   );
