@@ -1,7 +1,7 @@
 import { usePSGStore } from '../../stores/usePSGStore';
 
 export const loadPSG = async (path: string) => {
-  const { loading, setLoading, setRegData } = usePSGStore.getState();
+  const { setLoading, setRegData } = usePSGStore.getState();
 
   const getbyte = () => {
     let result = buffer[ptr];
@@ -97,10 +97,6 @@ export const loadPSG = async (path: string) => {
   for (let n = 0; n < 14; n++) {
     regBuffer[n] = 0;
   }
-
-  const response = await fetch(path);
-  //let buffer: any = await response.arrayBuffer();
-  //buffer = new Uint8Array(buffer);
 
   //@ts-ignore
   let buffer = await api.loadFile(path);

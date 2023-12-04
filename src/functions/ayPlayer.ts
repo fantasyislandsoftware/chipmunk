@@ -1,12 +1,17 @@
 import { useAYPlayerStore } from '../stores/useAYPlayerStore';
 import { usePSGStore } from '../stores/usePSGStore';
 
-export const initAYPLayer = (fillBuffer: any) => {
-  const { engine, context, clockRate, sampleRate } =
+export const initAYPLayer = () => {
+  const { engine, clockRate, sampleRate, setInitialized } =
     useAYPlayerStore.getState();
   engine.configure(true, clockRate, sampleRate);
+  setInitialized(true);
+};
+
+export const initAudioNode = (buffer: any) => {
+  const { context } = useAYPlayerStore.getState();
   var audioNode = context.createScriptProcessor(4096, 0, 2);
-  audioNode.onaudioprocess = fillBuffer;
+  audioNode.onaudioprocess = buffer;
   audioNode.connect(context.destination);
 };
 

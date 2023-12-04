@@ -1,9 +1,8 @@
-import { initAYPLayer, processAYBuffer } from '../../functions/ayPlayer';
 import { useAYPlayerStore } from '../../stores/useAYPlayerStore';
 import WindowContainer from '../Components/WindowContainer';
 
 const PSGImport = () => {
-  const { frame } = useAYPlayerStore();
+  const { context, frame } = useAYPlayerStore();
 
   return (
     <WindowContainer
@@ -13,12 +12,18 @@ const PSGImport = () => {
         <>
           <button
             onClick={() => {
-              initAYPLayer(processAYBuffer);
+              context.resume();
             }}
           >
             PLAY
           </button>
-          <button>STOP</button>
+          <button
+            onClick={() => {
+              context.suspend();
+            }}
+          >
+            STOP
+          </button>
           <div>{frame}</div>
         </>
       }

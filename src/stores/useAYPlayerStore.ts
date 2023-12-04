@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { Ayumi } from '../classes/ayumi';
 
 export interface AYPlayerStore {
+  initialized: boolean;
+  setInitialized: (initialized: boolean) => void;
   engine: Ayumi;
   context: AudioContext;
   clockRate: number;
@@ -14,6 +16,10 @@ export interface AYPlayerStore {
 }
 
 export const useAYPlayerStore = create<AYPlayerStore>((set) => ({
+  initialized: false,
+  setInitialized: (initialized: boolean) => {
+    set({ initialized });
+  },
   engine: new Ayumi(),
   //@ts-ignore
   context: new (window.AudioContext || window.webkitAudioContext)(),
