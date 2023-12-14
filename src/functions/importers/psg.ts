@@ -1,7 +1,13 @@
 import { usePSGStore } from '../../stores/usePSGStore';
 
+export const unloadPSG = () => {
+  const { setRegData } = usePSGStore.getState();
+  setRegData([]);
+};
+
 export const loadPSG = async (path: string) => {
   const { setLoading, setRegData } = usePSGStore.getState();
+  setLoading(true);
 
   const getbyte = () => {
     let result = buffer[ptr];

@@ -1,39 +1,15 @@
 import { useEffect } from 'react';
-import { usePSGStore } from '../stores/usePSGStore';
-import { loadPSG } from '../functions/importers/psg';
-import VirtualKeyboardContainer from './WIndows/VirtualKeyboard/VirtualKeyboardContainer';
 import '../css/base.css';
-import PSGImport from './WIndows/PSGImport';
-import { useAYPlayerStore } from '../stores/useAYPlayerStore';
-import {
-  initAYPLayer,
-  initAudioNode,
-  processAYBuffer,
-} from '../functions/ayPlayer';
+import '../css/bootstrap-3.3.7-dist/css/bootstrap.min.css';
+import PSGImports from './Windows/PSGImports';
+import { useAudioManagerStore } from '../stores/useAudioManagerStore';
 
 const App = () => {
-  const { loading } = usePSGStore();
-  const { initialized, context } = useAYPlayerStore();
-
-  useEffect(() => {
-    if (!initialized) {
-      initAYPLayer();
-      initAudioNode(processAYBuffer);
-      context.suspend();
-    }
-  }, [initialized]);
-
-  useEffect(() => {
-    if (!loading) {
-      loadPSG('gliderrider.psg');
-    }
-  }, [loading]);
-
   return (
-    <div>
-      <VirtualKeyboardContainer />
-      <PSGImport />
-    </div>
+    <>
+      {/*<VirtualKeyboard />*/}
+      <PSGImports />
+    </>
   );
 };
 

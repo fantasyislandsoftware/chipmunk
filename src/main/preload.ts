@@ -5,7 +5,8 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 export type Channels = 'ipc-example';
 
 contextBridge.exposeInMainWorld('api', {
-  loadFile: (data: string) => ipcRenderer.invoke('load-file', data),
+  loadFile: (data: string, format: any) =>
+    ipcRenderer.invoke('load-file', data, format)
 });
 
 const electronHandler = {

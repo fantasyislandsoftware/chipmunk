@@ -2,6 +2,7 @@ import path from 'path';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { resolveHtmlPath } from './util';
 import fs from 'fs';
+import { readFile } from 'fs/promises';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -23,13 +24,16 @@ if (isDebug) {
   require('electron-debug')();
 }
 
-const createWindow = async () => {
-  ipcMain.handle('load-file', (req, fileName) => {
-    const filePath = path.join(__dirname, 'psg', fileName);
-    const buffer = fs.readFileSync(filePath);
-    return buffer;
-  });
+ipcMain.handle('load-file', (req, path, format) => {
+  let filePath = path.startsWith('/') ? path : __dirname + '/' + path;
+  const buffer = fs.readFileSync(filePath);
+  if (format === 'string') {
+    return buffer.toString();
+  }
+  return buffer;
+});
 
+const createWindow = async () => {
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
     : path.join(__dirname, '../../assets');
@@ -40,7 +44,7 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1800,
+    width: 1500,
     height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {

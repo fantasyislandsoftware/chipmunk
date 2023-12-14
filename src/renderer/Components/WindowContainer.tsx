@@ -3,6 +3,8 @@ import { FC, useEffect, useRef, useState } from 'react';
 interface IProps {
   id: string;
   title: string;
+  width: number;
+  height: number;
   content: any;
 }
 
@@ -21,9 +23,10 @@ const settings = {
   },
 };
 
-const WindowContainer: FC<IProps> = ({ id, title, content }) => {
+const WindowContainer: FC<IProps> = ({ id, title, width, height, content }) => {
   const window_settings: any = settings;
   const position = window_settings[id].pos;
+  const ref = useRef(null);
 
   const [done, setDone] = useState(false);
   function dragElement(elmnt: any) {
@@ -79,54 +82,23 @@ const WindowContainer: FC<IProps> = ({ id, title, content }) => {
     }
   }, [done]);
 
-  /*return (
-    <div
-      id={id}
-      className="window"
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-    >
-      <div id={`${id}_header`} className="titlebar">
-        <div className="buttons">
-          <div className="close">
-            <a className="closebutton" href="#">
-              <span>
-                <strong>x</strong>
-              </span>
-            </a>
-          </div>
-          <div className="minimize">
-            <a className="minimizebutton" href="#">
-              <span>
-                <strong>&ndash;</strong>
-              </span>
-            </a>
-          </div>
-          <div className="zoom">
-            <a className="zoombutton" href="#">
-              <span>
-                <strong>+</strong>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="content">
-        <h3>Hey! What's up?</h3>
-        I'm a simple OS X Yosemite style window.
-      </div>
-    </div>
-  );*/
-
   return (
     <div
       id={id}
-      className="window_content"
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
+      className="window_container"
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
     >
       <div id={`${id}_header`} className="window_header">
         {title}
       </div>
-      {content}
+      <div ref={ref} className="window_content">
+        {content}
+      </div>
     </div>
   );
 };
