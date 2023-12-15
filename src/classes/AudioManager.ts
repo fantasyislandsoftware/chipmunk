@@ -1,3 +1,4 @@
+import { useAudioManagerStore } from '../stores/useAudioManagerStore';
 import { usePSGStore } from '../stores/usePSGStore';
 import Ayumi from './ayumi';
 
@@ -35,6 +36,7 @@ export class AudioManager {
   processBuffer = (e: any) => {
     if (!this.playing) return;
     const { regData } = usePSGStore.getState();
+    const { setCurrentFrame } = useAudioManagerStore.getState();
     var isrStep = this.frameRate / this.sampleRate;
     var left = e.outputBuffer.getChannelData(0);
     var right = e.outputBuffer.getChannelData(1);
@@ -44,6 +46,7 @@ export class AudioManager {
         this.isrCounter--;
         const regs = regData[this.frame];
         this.updateAYRegs(this.engine, regs);
+        setCurrentFrame(this.frame);
         if (++this.frame >= regData.length) {
           this.frame = 0;
         }
@@ -53,7 +56,6 @@ export class AudioManager {
       left[i] = this.engine.left;
       right[i] = this.engine.right;
     }
-    return true;
   };
 
   updateAYRegs = (engine: any, r: number[]) => {

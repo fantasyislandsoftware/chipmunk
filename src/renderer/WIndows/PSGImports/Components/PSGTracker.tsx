@@ -1,45 +1,22 @@
+import { useEffect, useState } from 'react';
 import { useAudioManagerStore } from '../../../../stores/useAudioManagerStore';
 import { usePSGStore } from '../../../../stores/usePSGStore';
 import Button from '../../../Components/base/Button';
 import Section from '../../../Components/base/Section';
+import PSGControlDeck from './PSGControlDesk';
+import PSGRegTable from './PSGRegTable';
 
 const PSGTracker = () => {
   const { regData } = usePSGStore();
   const { audioManager } = useAudioManagerStore();
 
-  const ControlDeck = () => (
-    <Section
-      style={{ padding: '7px' }}
-      content={
-        <>
-          <Button
-            text="Play"
-            icon="play"
-            onClick={() => {
-              audioManager.play();
-            }}
-          />
-          <Button
-            text="Stop"
-            icon="stop"
-            onClick={() => {
-              audioManager.stop();
-            }}
-          />
-        </>
-      }
-    />
-  );
-
-  const Tracker = () => (
-    <Section style={{ flexGrow: 1 }} content={<div>Tracker</div>} />
-  );
+  const [currentFrame, setCurrentFrame] = useState(0);
 
   if (regData.length > 0) {
     return (
       <div style={{ display: 'flex', flexFlow: 'column', width: '100%' }}>
-        <ControlDeck />
-        <Tracker />
+        <PSGControlDeck />
+        <PSGRegTable/>
       </div>
     );
   } else {
