@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useGetPSGList } from '../../../api/hooks/useGetPSGList';
 import WindowContainer from '../../Components/WindowContainer';
 import PSGImportsView from './PSGImportsView';
@@ -10,8 +9,8 @@ const PSGImportsContainer = () => {
     <WindowContainer
       id="psg_import"
       title="PSG Import"
-      width={600}
-      height={300}
+      width={800}
+      height={488}
       content={loading ? <Loader /> : <PSGImportsView data={data} />}
     />
   );

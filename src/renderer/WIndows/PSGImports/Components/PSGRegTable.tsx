@@ -26,7 +26,7 @@ const PSGRegTable: FC<IProps> = () => {
     'S3',
   ];
 
-  const chunk = [];
+  const chunk: number[][] = [];
   if (regData.length === 0) return null;
   for (let i = currentFrame; i < currentFrame + 10; i++) {
     if (i < regData.length) {
@@ -39,11 +39,33 @@ const PSGRegTable: FC<IProps> = () => {
       style={{ flexGrow: 1 }}
       content={
         <div>
-          <table className="fixed">
-            {headings.map((heading) => (
-              <col width="40px"></col>
-            ))}
+          <table className="table">
             <thead>
+              <tr>
+                {headings.map((heading, index) => {
+                  const a = (chunk[0][index] / 255) * 100;
+                  const b = 100 - a;
+                  return (
+                    <th key={heading}>
+                      <div
+                        style={{
+                          width: '24px',
+                          height: '32px',
+                          backgroundColor: 'blue',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '100%',
+                            height: `${b}%`,
+                            backgroundColor: 'white',
+                          }}
+                        ></div>
+                      </div>
+                    </th>
+                  );
+                })}
+              </tr>
               <tr>
                 {headings.map((heading) => (
                   <th key={heading}>{heading}</th>
@@ -51,12 +73,15 @@ const PSGRegTable: FC<IProps> = () => {
               </tr>
             </thead>
             <tbody>
-              {chunk.map((row, index) => (
-                <tr>
+              {chunk.map((row, rowIndex) => (
+                <tr key={rowIndex}>
                   {row.map((cell) => (
                     <td
+                      key={`${Math.random()}`}
                       style={{
-                        backgroundColor: index === 0 ? 'blue' : 'white',
+                        backgroundColor: rowIndex === 0 ? 'lightBlue' : 'white',
+                        //minWidth: '10px',
+                        //maxWidth: '10px',
                       }}
                     >
                       {cell}
